@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { ServiceCard } from "@/components/ServiceCard";
 import { SERVICES } from "@/data/services";
 import { AUDIENCES } from "@/data/site";
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
+      <BreadcrumbJsonLd page={{ name: "Business Services", path: "/services/" }} />
       <section className="dot-grid">
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
           <SectionHeading

@@ -51,6 +51,7 @@ export const metadata: Metadata = {
       "Office lunch coordination for Myrtle Beach, Conway & Horry County businesses.",
     images: [`${SITE.url}/og-image.png`],
   },
+  alternates: { canonical: "./" },
   robots: { index: true, follow: true },
 };
 

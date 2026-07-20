@@ -3,9 +3,28 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { FAQList } from "@/components/FAQ";
 import { TestimonialSection } from "@/components/TestimonialSection";
+import { FaqJsonLd } from "@/components/JsonLd";
 import { Icon } from "@/components/icons";
 import { FAQS } from "@/data/faqs";
 import { AUDIENCES, SITE } from "@/data/site";
+
+const AREAS = [
+  {
+    name: "Myrtle Beach",
+    blurb:
+      "From the medical district to the resorts and dealerships along the Grand Strand, we coordinate office lunches for Myrtle Beach teams of every size.",
+  },
+  {
+    name: "Conway",
+    blurb:
+      "Law firms, government offices, and growing businesses around Conway get one contact for corporate lunches and recurring staff meals.",
+  },
+  {
+    name: "Horry County",
+    blurb:
+      "Wherever your office sits across greater Horry County, we help organize group food orders from restaurants close to you.",
+  },
+];
 
 const STEPS = [
   {
@@ -195,12 +214,36 @@ export default function HomePage() {
         </ul>
       </section>
 
+      {/* LOCAL — Grand Strand */}
+      <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
+        <SectionHeading
+          eyebrow="Serving the Grand Strand"
+          title="Local to Myrtle Beach, Conway & Horry County"
+          lead="The Lunch Desk is a local service, built for local offices — coordinating lunches from restaurants right in your community."
+        />
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {AREAS.map((a) => (
+            <div
+              key={a.name}
+              className="rounded-3xl border border-ink-900/8 bg-white p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lift"
+            >
+              <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-fresh-100 text-fresh-700">
+                <Icon name="check" className="h-5.5 w-5.5" />
+              </span>
+              <h3 className="mt-4 font-display text-lg font-bold text-ink-900">{a.name}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-ink-600">{a.blurb}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <TestimonialSection />
 
       {/* FAQ */}
       <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8" id="faq">
         <SectionHeading eyebrow="Questions" title="Frequently asked questions" />
         <FAQList faqs={FAQS} />
+        <FaqJsonLd />
       </section>
 
       <CTASection

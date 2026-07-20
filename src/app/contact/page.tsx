@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SectionHeading } from "@/components/SectionHeading";
 import { LunchRequestForm } from "@/components/forms/LunchRequestForm";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { Icon } from "@/components/icons";
 import { SITE } from "@/data/site";
 
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
+      <BreadcrumbJsonLd page={{ name: "Plan an Office Lunch", path: "/contact/" }} />
       <section className="dot-grid">
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
           <SectionHeading

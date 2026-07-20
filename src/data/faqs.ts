@@ -30,4 +30,20 @@ export const FAQS: Faq[] = [
     q: "Do you work with restaurants?",
     a: "Yes. Local restaurants interested in receiving additional business and group orders can contact The Lunch Desk about becoming a restaurant partner.",
   },
+  {
+    q: "What areas do you serve?",
+    a: "The Lunch Desk coordinates office lunches for businesses throughout Myrtle Beach, Conway, and the greater Horry County, South Carolina area.",
+  },
+  {
+    q: "How far in advance should I submit a request?",
+    a: "The sooner the better — more notice usually means more restaurant options, especially for large groups. When you send your request, we'll confirm what's possible for your date and let you know if a restaurant needs extra lead time.",
+  },
+  {
+    q: "Is there a minimum or maximum group size?",
+    a: "The Lunch Desk can help with everything from a small team lunch to a large all-office order. Minimums, when they apply, depend on the individual restaurant, and we'll confirm those details before anything is placed.",
+  },
+  {
+    q: "How do we get started?",
+    a: "Send your lunch details through the Plan Your Lunch form or reach out directly. We'll follow up to confirm availability, share options that fit your budget, and coordinate the order.",
+  },
 ];

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CTASection } from "@/components/CTASection";
 import { SectionHeading } from "@/components/SectionHeading";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { Icon } from "@/components/icons";
 import { SITE } from "@/data/site";
 
@@ -28,6 +29,7 @@ const VALUES = [
 export default function AboutPage() {
   return (
     <>
+      <BreadcrumbJsonLd page={{ name: "About", path: "/about/" }} />
       <section className="dot-grid">
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-20">
           <div className="mx-auto max-w-3xl text-center">
