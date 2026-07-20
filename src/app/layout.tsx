@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/data/site";
@@ -34,14 +34,29 @@ export const metadata: Metadata = {
     description:
       "One point of contact for office lunches in Myrtle Beach, Conway & Horry County. We coordinate the food — you focus on your business.",
     locale: "en_US",
+    url: SITE.url,
+    images: [
+      {
+        url: `${SITE.url}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: `${SITE.name} — ${SITE.tagline}`,
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: `${SITE.name} — ${SITE.tagline}`,
     description:
       "Office lunch coordination for Myrtle Beach, Conway & Horry County businesses.",
+    images: [`${SITE.url}/og-image.png`],
   },
   robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#e86f2d",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
