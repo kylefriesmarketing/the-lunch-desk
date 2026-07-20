@@ -63,6 +63,17 @@ export function RestaurantDirectory() {
     [cuisine, price, area, groupMin, cateringOnly],
   );
 
+  const filtersActive =
+    cuisine !== "all" || price !== "all" || area !== "all" || groupMin !== "0" || cateringOnly;
+
+  function resetFilters() {
+    setCuisine("all");
+    setPrice("all");
+    setArea("all");
+    setGroupMin("0");
+    setCateringOnly(false);
+  }
+
   return (
     <div>
       <div className="rounded-3xl border border-ink-900/8 bg-white p-6 shadow-sm">
@@ -112,9 +123,20 @@ export function RestaurantDirectory() {
         </label>
       </div>
 
-      <p className="mt-6 text-sm text-ink-500" role="status">
-        Showing {results.length} of {RESTAURANTS.length} partner slots
-      </p>
+      <div className="mt-6 flex items-center justify-between gap-4">
+        <p className="text-sm text-ink-500" role="status">
+          Showing {results.length} of {RESTAURANTS.length} partner slots
+        </p>
+        {filtersActive && (
+          <button
+            type="button"
+            onClick={resetFilters}
+            className="rounded-full border border-ink-900/12 px-4 py-1.5 text-sm font-semibold text-ink-700 transition-colors hover:border-brand-500 hover:text-brand-600"
+          >
+            Clear filters
+          </button>
+        )}
+      </div>
 
       <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {results.map((r) => (

@@ -1,16 +1,17 @@
-import type { Metadata } from "next";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { ServiceCard } from "@/components/ServiceCard";
 import { SERVICES } from "@/data/services";
 import { AUDIENCES } from "@/data/site";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Business Services — Corporate Lunch Coordination in Horry County",
   description:
     "Weekly office lunches, staff meetings, training sessions, pharmaceutical lunches, sales presentations, and recurring lunch programs — The Lunch Desk coordinates group food orders for businesses in Myrtle Beach, Conway, and Horry County.",
-};
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (

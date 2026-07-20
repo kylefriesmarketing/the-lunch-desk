@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { Icon } from "@/components/icons";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "How It Works — Office Lunch Coordination in Myrtle Beach & Conway",
   description:
     "How The Lunch Desk coordinates office lunches: share your date, headcount, and budget — we organize restaurant options, place the order, and coordinate pickup details for Myrtle Beach, Conway, and Horry County businesses.",
-};
+  path: "/how-it-works",
+});
 
 const YOU_PROVIDE = [
   { label: "Date", note: "When lunch needs to happen" },

@@ -1,15 +1,16 @@
-import type { Metadata } from "next";
 import { CTASection } from "@/components/CTASection";
 import { SectionHeading } from "@/components/SectionHeading";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { Icon } from "@/components/icons";
 import { SITE } from "@/data/site";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "About — A Local Answer to Office Lunch Chaos",
   description:
     "The Lunch Desk was created to solve a simple problem: ordering food for an entire workplace is unnecessarily complicated. We connect local restaurants with local businesses across Myrtle Beach, Conway, and Horry County.",
-};
+  path: "/about",
+});
 
 const VALUES = [
   {

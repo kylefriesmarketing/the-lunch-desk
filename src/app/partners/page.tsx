@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
 import { SectionHeading } from "@/components/SectionHeading";
 import { PartnerForm } from "@/components/forms/PartnerForm";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { Icon, type IconName } from "@/components/icons";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Restaurant Partners — Grow Your Business Orders",
   description:
     "Partner with The Lunch Desk to receive large and recurring office lunch orders from Myrtle Beach, Conway, and Horry County businesses. One contact, bigger group orders, simplified business ordering.",
-};
+  path: "/partners",
+});
 
 const BENEFITS: { icon: IconName; title: string; body: string }[] = [
   {

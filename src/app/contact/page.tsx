@@ -1,15 +1,16 @@
-import type { Metadata } from "next";
 import { SectionHeading } from "@/components/SectionHeading";
 import { LunchRequestForm } from "@/components/forms/LunchRequestForm";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { Icon } from "@/components/icons";
 import { SITE } from "@/data/site";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Plan an Office Lunch — Request Lunch Options",
   description:
     "Request office lunch options in Myrtle Beach, Conway, and Horry County. Share your date, headcount, and budget — The Lunch Desk will coordinate restaurant options and handle the order details.",
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

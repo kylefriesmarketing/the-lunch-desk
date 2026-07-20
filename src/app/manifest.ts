@@ -21,5 +21,19 @@ export default function manifest(): MetadataRoute.Manifest {
         purpose: "maskable",
       },
     ],
+    shortcuts: [
+      {
+        name: "Plan an Office Lunch",
+        short_name: "Plan a Lunch",
+        description: "Request office lunch options",
+        url: `${SITE.url}/contact/`,
+      },
+      {
+        name: "Become a Restaurant Partner",
+        short_name: "Partner",
+        description: "Grow your business orders",
+        url: `${SITE.url}/partners/`,
+      },
+    ],
   };
 }

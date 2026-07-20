@@ -2,7 +2,7 @@
 
 /** Shared field components + submit plumbing for both lead forms. */
 
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { SITE } from "@/data/site";
 
 const inputCls =
@@ -107,9 +107,22 @@ export function useLeadSubmit(kind: "lunch-request" | "restaurant-partner") {
 }
 
 export function SubmitFeedback({ state, sentMessage }: { state: SubmitState; sentMessage: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  // On a result, move focus + scroll to the message so screen-reader and
+  // keyboard users are taken straight to the confirmation.
+  useEffect(() => {
+    if (state.phase === "sent" || state.phase === "preview" || state.phase === "error") {
+      ref.current?.focus();
+      ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [state.phase]);
+
   if (state.phase === "sent") {
     return (
       <div
+        ref={ref}
+        tabIndex={-1}
         role="status"
         className="rounded-2xl border border-fresh-500/30 bg-fresh-100 p-5 text-[15px] leading-relaxed text-fresh-700"
       >
@@ -120,6 +133,8 @@ export function SubmitFeedback({ state, sentMessage }: { state: SubmitState; sen
   if (state.phase === "preview") {
     return (
       <div
+        ref={ref}
+        tabIndex={-1}
         role="status"
         className="rounded-2xl border border-brand-300 bg-brand-50 p-5 text-[15px] leading-relaxed text-brand-800"
       >
@@ -132,7 +147,12 @@ export function SubmitFeedback({ state, sentMessage }: { state: SubmitState; sen
   }
   if (state.phase === "error") {
     return (
-      <div role="alert" className="rounded-2xl border border-red-300 bg-red-50 p-5 text-[15px] text-red-700">
+      <div
+        ref={ref}
+        tabIndex={-1}
+        role="alert"
+        className="rounded-2xl border border-red-300 bg-red-50 p-5 text-[15px] text-red-700"
+      >
         {state.message}
       </div>
     );

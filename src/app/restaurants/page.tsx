@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { RestaurantDirectory } from "@/components/RestaurantDirectory";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Lunch Options — Local Restaurant Partners for Office Food Ordering",
   description:
     "Browse restaurant and catering styles for office lunches in Myrtle Beach, Conway, and Horry County. Filter by cuisine, price, location, group size, and catering availability — then request lunch options from The Lunch Desk.",
-};
+  path: "/restaurants",
+});
 
 export default function RestaurantsPage() {
   return (
