@@ -1,0 +1,58 @@
+import type { Metadata } from "next";
+import { Inter, Bricolage_Grotesque } from "next/font/google";
+import "./globals.css";
+import { SITE } from "@/data/site";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const bricolage = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-bricolage" });
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: `${SITE.name} — ${SITE.tagline} | Myrtle Beach & Conway, SC`,
+    template: `%s | ${SITE.name}`,
+  },
+  description:
+    "The Lunch Desk helps Myrtle Beach, Conway, and Horry County businesses coordinate office lunches from local restaurants — one point of contact for group orders, meeting meals, and recurring office lunch programs.",
+  keywords: [
+    "office lunch Myrtle Beach",
+    "office catering Myrtle Beach",
+    "corporate lunch Myrtle Beach",
+    "office lunch Conway SC",
+    "corporate catering Conway SC",
+    "group lunch ordering Horry County",
+    "office food ordering Myrtle Beach",
+    "business lunch coordination Myrtle Beach",
+  ],
+  openGraph: {
+    type: "website",
+    siteName: SITE.name,
+    title: `${SITE.name} — ${SITE.tagline}`,
+    description:
+      "One point of contact for office lunches in Myrtle Beach, Conway & Horry County. We coordinate the food — you focus on your business.",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary",
+    title: `${SITE.name} — ${SITE.tagline}`,
+    description:
+      "Office lunch coordination for Myrtle Beach, Conway & Horry County businesses.",
+  },
+  robots: { index: true, follow: true },
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={`${inter.variable} ${bricolage.variable}`}>
+      <body className="flex min-h-screen flex-col">
+        <Navbar />
+        <main className="flex-1">{children}</main>
+        <Footer />
+        <JsonLd />
+      </body>
+    </html>
+  );
+}

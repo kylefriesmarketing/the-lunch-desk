@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   The Lunch Desk design tokens ("Lunch Hour" palette)
+   Warm terracotta (appetite, hospitality) + deep harbor navy (corporate trust)
+   + fresh green accent, on a warm cream ground.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-cream: #faf6ef;
+  --color-cream-deep: #f3ecdf;
+
+  --color-brand-50: #fef4ec;
+  --color-brand-100: #fce4d1;
+  --color-brand-200: #f8c8a4;
+  --color-brand-300: #f3a671;
+  --color-brand-400: #ed8443;
+  --color-brand-500: #e86f2d;
+  --color-brand-600: #cf5a1e;
+  --color-brand-700: #ab4618;
+  --color-brand-800: #873917;
+  --color-brand-900: #6d3015;
+
+  --color-ink-50: #f2f5f9;
+  --color-ink-100: #e2e8f0;
+  --color-ink-200: #c6d0de;
+  --color-ink-300: #9dabc1;
+  --color-ink-400: #6f82a0;
+  --color-ink-500: #4e6182;
+  --color-ink-600: #3c4c69;
+  --color-ink-700: #2c3a54;
+  --color-ink-800: #202d44;
+  --color-ink-900: #16233a;
+
+  --color-fresh-100: #e2f2e8;
+  --color-fresh-500: #3e8e5c;
+  --color-fresh-700: #2c6b44;
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-lift: 0 10px 30px -12px rgb(22 35 58 / 0.18);
+  --shadow-lift-lg: 0 24px 50px -20px rgb(22 35 58 / 0.28);
+
+  --animate-fade-up: fade-up 0.7s ease-out both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink-900);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-brand-200);
+  color: var(--color-ink-900);
+}
+
+/* Soft dotted "picnic" texture used behind hero sections */
+.dot-grid {
+  background-image: radial-gradient(rgb(22 35 58 / 0.07) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+
+/* Accessible focus rings everywhere */
+:focus-visible {
+  outline: 3px solid var(--color-brand-400);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* FAQ accordion marker cleanup */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .faq-chevron {
+  transform: rotate(180deg);
+}
