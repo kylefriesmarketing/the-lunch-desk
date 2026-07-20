@@ -9,10 +9,11 @@ export const SITE = {
   tagline: "Your Office Lunch Concierge",
 
   /**
-   * Canonical production URL. Update before launch, then re-deploy —
-   * sitemap.ts, robots.ts and all metadata read from this value.
+   * Canonical production URL. Currently the GitHub Pages deploy; swap to the
+   * custom domain (e.g. https://thelunchdesk.com) when it exists, then
+   * re-deploy — sitemap.ts, robots.ts and all metadata read from this value.
    */
-  url: "https://thelunchdesk.com",
+  url: "https://kylefriesmarketing.github.io/the-lunch-desk",
 
   /** TODO: official business phone, e.g. "(843) 555-0123". Empty = hidden. */
   phone: "" as string,
