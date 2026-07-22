@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://kylefriesmarketing.github.io/the-lunch-desk/sitemap.xml
