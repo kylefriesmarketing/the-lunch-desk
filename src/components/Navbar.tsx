@@ -26,6 +26,17 @@ export function Navbar() {
   // Close the mobile menu on navigation.
   useEffect(() => setOpen(false), [pathname]);
 
+  // Escape dismisses the mobile menu — expected behavior for any open menu,
+  // and the only way out for keyboard users who don't want to tab through it.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <header className="sticky top-0 z-50 border-b border-ink-900/8 bg-cream/85 backdrop-blur-md">
       <div className="mx-auto flex h-18 max-w-6xl items-center justify-between px-5 sm:px-8">
