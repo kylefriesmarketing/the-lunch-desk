@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
@@ -31,9 +32,9 @@ export default function RestaurantsPage() {
           <strong className="font-display">Restaurant listings are placeholders</strong> while we
           finalize our first local partnerships — no real restaurant partnerships are shown yet.
           Own a local kitchen?{" "}
-          <a href="/partners" className="font-semibold underline underline-offset-4">
+          <Link href="/partners" className="font-semibold underline underline-offset-4">
             Become a restaurant partner.
-          </a>
+          </Link>
         </p>
       </section>
 

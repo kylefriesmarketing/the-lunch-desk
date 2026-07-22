@@ -39,7 +39,18 @@ export function LunchRequestForm() {
     if (!data.company.trim()) errs.company = "Please enter your company.";
     if (!EMAIL_RE.test(data.email)) errs.email = "Please enter a valid email address.";
     if (!data.phone.trim()) errs.phone = "Please enter a phone number.";
-    if (!data.date) errs.date = "Please pick the date you need lunch.";
+    if (!data.date) {
+      errs.date = "Please pick the date you need lunch.";
+    } else {
+      // Compare against today at midnight so "today" is always still valid.
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      // Parse as local time — `new Date("2026-08-03")` would be parsed as UTC
+      // and can land on the previous day in western time zones.
+      const [y, m, d] = data.date.split("-").map(Number);
+      const picked = new Date(y, m - 1, d);
+      if (picked < today) errs.date = "Please choose today or a future date.";
+    }
     if (!data.people || Number(data.people) < 1)
       errs.people = "How many people are we feeding?";
     setErrors(errs);

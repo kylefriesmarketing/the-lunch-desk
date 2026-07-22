@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { RESTAURANTS, CUISINES, type PriceRange } from "@/data/restaurants";
 import { SITE } from "@/data/site";
@@ -147,9 +148,9 @@ export function RestaurantDirectory() {
       {results.length === 0 && (
         <p className="mt-8 rounded-2xl bg-white p-8 text-center text-ink-600 shadow-sm">
           No partner slots match those filters yet — but we can still coordinate it.{" "}
-          <a href="/contact" className="font-semibold text-brand-600 underline underline-offset-4">
+          <Link href="/contact" className="font-semibold text-brand-600 underline underline-offset-4">
             Tell us what you&apos;re looking for.
-          </a>
+          </Link>
         </p>
       )}
     </div>
