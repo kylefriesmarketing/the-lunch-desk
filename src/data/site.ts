@@ -15,11 +15,11 @@ export const SITE = {
    */
   url: "https://kylefriesmarketing.github.io/the-lunch-desk",
 
-  /** TODO: official business phone, e.g. "(843) 555-0123". Empty = hidden. */
-  phone: "" as string,
+  /** Official business phone. Empty = hidden everywhere. */
+  phone: "(252) 626-9250" as string,
 
-  /** TODO: official business inbox, e.g. "hello@thelunchdesk.com". Empty = hidden. */
-  email: "" as string,
+  /** Official business inbox. Empty = hidden everywhere. */
+  email: "LunchDeskLLC@gmail.com" as string,
 
   serviceAreas: ["Myrtle Beach", "Conway", "Horry County"],
   region: "SC",

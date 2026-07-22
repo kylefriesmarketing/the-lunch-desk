@@ -162,7 +162,7 @@ services list, post drafts, Q&A seeds, photo checklist, and verification notes.
 
 ## Pre-launch checklist
 
-- [ ] Add real phone + email to `src/data/site.ts`
+- [x] Add real phone + email to `src/data/site.ts`
 - [ ] Connect `NEXT_PUBLIC_FORM_ENDPOINT` and send a real test lead
 - [ ] Replace restaurant placeholders as partners sign on
 - [ ] Point a custom domain and update `site.ts` → `url`
