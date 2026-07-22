@@ -70,9 +70,13 @@ fonts, shadows) are in `src/app/globals.css` under `@theme`.
 
 ## Connecting the forms
 
-Both forms POST JSON to `NEXT_PUBLIC_FORM_ENDPOINT`. **Until it's set, the
-forms validate but show an honest "preview mode" notice** instead of pretending
-to send — no leads are silently lost.
+Both forms POST JSON to `NEXT_PUBLIC_FORM_ENDPOINT`.
+
+**Until it's set, the forms fall back to email:** on submit, the visitor gets a
+"Send my request" button that opens their mail client with every field they
+filled in, pre-addressed to the business inbox (plus the phone number as an
+alternative). Leads still reach you — it just costs the visitor one extra tap.
+Setting the endpoint removes that step and delivers submissions automatically.
 
 1. Create a free form at [formspree.io](https://formspree.io).
 2. Copy `.env.example` → `.env.local` and paste the endpoint.

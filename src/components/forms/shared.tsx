@@ -64,19 +64,47 @@ export type SubmitState =
   | { phase: "idle" }
   | { phase: "sending" }
   | { phase: "sent" }
-  | { phase: "preview" }
+  /** No form endpoint configured — offer to send the details by email instead. */
+  | { phase: "fallback"; mailto: string }
   | { phase: "error"; message: string };
+
+/** "pickupTime" -> "Pickup Time" — makes the emailed summary readable. */
+const labelize = (k: string) =>
+  k
+    .replace(/([A-Z])/g, " $1")
+    .replace(/^./, (c) => c.toUpperCase())
+    .trim();
+
+/**
+ * Composes a mailto: link containing everything the visitor typed, so a lead
+ * is never lost just because the form endpoint isn't wired up yet.
+ */
+function buildMailto(kind: LeadKind, data: Record<string, string>) {
+  const subject =
+    kind === "lunch-request"
+      ? `Office lunch request — ${data.company || data.name || "New enquiry"}`
+      : `Restaurant partner inquiry — ${data.restaurantName || "New enquiry"}`;
+  const body = Object.entries(data)
+    .filter(([, v]) => v && String(v).trim())
+    .map(([k, v]) => `${labelize(k)}: ${v}`)
+    .join("\n");
+  return `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+type LeadKind = "lunch-request" | "restaurant-partner";
 
 /**
  * Sends the lead to the configured endpoint (Formspree / CRM webhook /
  * automation). With no endpoint configured, reports honest preview mode.
  */
-export function useLeadSubmit(kind: "lunch-request" | "restaurant-partner") {
+export function useLeadSubmit(kind: LeadKind) {
   const [state, setState] = useState<SubmitState>({ phase: "idle" });
 
   async function submit(data: Record<string, string>) {
     if (!SITE.formEndpoint) {
-      setState({ phase: "preview" });
+      // No endpoint wired yet — hand the visitor a prefilled email instead of
+      // dropping the lead on the floor.
+      setState({ phase: "fallback", mailto: buildMailto(kind, data) });
       return;
     }
     setState({ phase: "sending" });
@@ -112,7 +140,7 @@ export function SubmitFeedback({ state, sentMessage }: { state: SubmitState; sen
   // On a result, move focus + scroll to the message so screen-reader and
   // keyboard users are taken straight to the confirmation.
   useEffect(() => {
-    if (state.phase === "sent" || state.phase === "preview" || state.phase === "error") {
+    if (state.phase === "sent" || state.phase === "fallback" || state.phase === "error") {
       ref.current?.focus();
       ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
     }
@@ -130,7 +158,7 @@ export function SubmitFeedback({ state, sentMessage }: { state: SubmitState; sen
       </div>
     );
   }
-  if (state.phase === "preview") {
+  if (state.phase === "fallback") {
     return (
       <div
         ref={ref}
@@ -138,10 +166,30 @@ export function SubmitFeedback({ state, sentMessage }: { state: SubmitState; sen
         role="status"
         className="rounded-2xl border border-brand-300 bg-brand-50 p-5 text-[15px] leading-relaxed text-brand-800"
       >
-        <strong className="font-display">Preview mode:</strong> this form isn&apos;t connected to an
-        inbox yet (set <code className="font-mono text-sm">NEXT_PUBLIC_FORM_ENDPOINT</code>), so
-        your request was <em>not</em> sent. Everything validated correctly and will submit once the
-        endpoint is configured.
+        <strong className="font-display">Almost there — one last tap.</strong>
+        <p className="mt-2">
+          We&apos;ve put your details into an email. Press send and we&apos;ll get straight back to
+          you to confirm availability and options.
+        </p>
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          <a
+            href={state.mailto}
+            className="inline-flex items-center justify-center rounded-full bg-brand-500 px-6 py-3 font-display font-semibold text-white shadow-lift transition-all hover:-translate-y-0.5 hover:bg-brand-600"
+          >
+            Send my request
+          </a>
+          {SITE.phone && (
+            <span className="text-sm">
+              or call{" "}
+              <a
+                href={`tel:${SITE.phone.replace(/[^+\d]/g, "")}`}
+                className="font-semibold underline underline-offset-4"
+              >
+                {SITE.phone}
+              </a>
+            </span>
+          )}
+        </div>
       </div>
     );
   }

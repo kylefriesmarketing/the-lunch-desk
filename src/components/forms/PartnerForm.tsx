@@ -35,7 +35,7 @@ export function PartnerForm() {
     void submit(data);
   }
 
-  const sent = state.phase === "sent" || state.phase === "preview";
+  const sent = state.phase === "sent" || state.phase === "fallback";
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
