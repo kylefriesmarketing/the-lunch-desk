@@ -36,7 +36,7 @@ export default function HowItWorksPage() {
   return (
     <>
       <BreadcrumbJsonLd page={{ name: "How It Works", path: "/how-it-works/" }} />
-      <section className="dot-grid">
+      <section className="hero-glow dot-grid">
         <div className="mx-auto max-w-6xl px-5 py-16 text-center sm:px-8 lg:py-20">
           <h1 className="mx-auto max-w-3xl animate-fade-up font-display text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">
             One point of contact between your office and{" "}

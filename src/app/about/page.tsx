@@ -31,7 +31,7 @@ export default function AboutPage() {
   return (
     <>
       <BreadcrumbJsonLd page={{ name: "About", path: "/about/" }} />
-      <section className="dot-grid">
+      <section className="hero-glow dot-grid">
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-20">
           <div className="mx-auto max-w-3xl text-center">
             <p className="font-display text-sm font-bold uppercase tracking-[0.18em] text-brand-600">

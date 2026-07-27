@@ -43,7 +43,7 @@ export default function PartnersPage() {
   return (
     <>
       <BreadcrumbJsonLd page={{ name: "Restaurant Partners", path: "/partners/" }} />
-      <section className="dot-grid">
+      <section className="hero-glow dot-grid">
         <div className="mx-auto max-w-6xl px-5 py-16 text-center sm:px-8">
           <p className="inline-flex items-center gap-2 rounded-full border border-fresh-500/30 bg-fresh-100 px-4 py-1.5 text-sm font-semibold text-fresh-700">
             <Icon name="utensils" className="h-4 w-4" />

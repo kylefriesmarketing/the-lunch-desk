@@ -8,11 +8,15 @@ import { Icon } from "@/components/icons";
 
 function Wordmark() {
   return (
-    <Link href="/" className="group flex items-center gap-2.5" aria-label={`${SITE.name} — home`}>
+    <Link
+      href="/"
+      className="group flex shrink-0 items-center gap-2.5"
+      aria-label={`${SITE.name} — home`}
+    >
       <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-500 text-white shadow-lift transition-transform duration-200 group-hover:-rotate-6">
         <Icon name="bag" className="h-5.5 w-5.5" />
       </span>
-      <span className="font-display text-xl font-bold tracking-tight text-ink-900">
+      <span className="whitespace-nowrap font-display text-xl font-bold tracking-tight text-ink-900">
         The Lunch <span className="text-brand-600">Desk</span>
       </span>
     </Link>
@@ -48,7 +52,7 @@ export function Navbar() {
               key={l.href}
               href={l.href}
               aria-current={pathname === l.href ? "page" : undefined}
-              className={`rounded-full px-3.5 py-2 text-[15px] font-medium transition-colors ${
+              className={`whitespace-nowrap rounded-full px-3 py-2 text-[14.5px] font-medium transition-colors ${
                 pathname === l.href
                   ? "bg-brand-100 text-brand-700"
                   : "text-ink-700 hover:bg-ink-900/5 hover:text-ink-900"
@@ -59,7 +63,7 @@ export function Navbar() {
           ))}
           <Link
             href="/contact"
-            className="ml-3 inline-flex items-center gap-2 rounded-full bg-brand-500 px-5 py-2.5 font-display text-[15px] font-semibold text-white shadow-lift transition-all hover:-translate-y-0.5 hover:bg-brand-600"
+            className="ml-2 inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-brand-500 px-5 py-2.5 font-display text-[14.5px] font-semibold text-white shadow-lift transition-all hover:-translate-y-0.5 hover:bg-brand-600"
           >
             Plan Your Lunch
           </Link>

@@ -1,4 +1,4 @@
-import { ButtonLink } from "@/components/Button";
+﻿import { ButtonLink } from "@/components/Button";
 
 interface Props {
   title: string;
@@ -20,7 +20,7 @@ export function CTASection({
 }: Props) {
   return (
     <section className="mx-auto mt-24 max-w-6xl px-5 sm:px-8">
-      <div className="dot-grid relative overflow-hidden rounded-[2.5rem] bg-ink-900 px-8 py-16 text-center shadow-lift-lg sm:px-16">
+      <div className="band-dark dot-grid relative overflow-hidden rounded-[2.5rem] px-8 py-16 text-center shadow-lift-lg sm:px-16 sm:py-20">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-brand-500/25 blur-3xl"
@@ -29,7 +29,7 @@ export function CTASection({
           aria-hidden="true"
           className="pointer-events-none absolute -bottom-20 -left-10 h-64 w-64 rounded-full bg-fresh-500/20 blur-3xl"
         />
-        <h2 className="relative font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+        <h2 className="relative mx-auto max-w-2xl font-display text-3xl font-bold tracking-tight text-balance text-white sm:text-[2.6rem] sm:leading-[1.1]">
           {title}
         </h2>
         {lead && (

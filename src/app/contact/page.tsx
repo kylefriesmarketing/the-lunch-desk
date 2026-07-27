@@ -16,7 +16,7 @@ export default function ContactPage() {
   return (
     <>
       <BreadcrumbJsonLd page={{ name: "Plan an Office Lunch", path: "/contact/" }} />
-      <section className="dot-grid">
+      <section className="hero-glow dot-grid">
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
           <SectionHeading
             eyebrow="Plan an office lunch"

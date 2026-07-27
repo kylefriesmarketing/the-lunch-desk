@@ -16,7 +16,7 @@ export default function RestaurantsPage() {
   return (
     <>
       <BreadcrumbJsonLd page={{ name: "Lunch Options", path: "/restaurants/" }} />
-      <section className="dot-grid">
+      <section className="hero-glow dot-grid">
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
           <SectionHeading
             eyebrow="Lunch options"
