@@ -23,6 +23,9 @@ function Wordmark() {
   );
 }
 
+/** tel: links must be digits only — strip formatting from the display number. */
+const telHref = `tel:${SITE.phone.replace(/[^+\d]/g, "")}`;
+
 export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -61,23 +64,45 @@ export function Navbar() {
               {l.label}
             </Link>
           ))}
+          {SITE.phone && (
+            <a
+              href={telHref}
+              className="ml-1 inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-2 font-display text-[14.5px] font-semibold text-ink-800 transition-colors hover:bg-brand-50 hover:text-brand-700"
+            >
+              <Icon name="phone" className="h-4 w-4 text-brand-500" />
+              {SITE.phone}
+            </a>
+          )}
           <Link
             href="/contact"
-            className="ml-2 inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-brand-500 px-5 py-2.5 font-display text-[14.5px] font-semibold text-white shadow-lift transition-all hover:-translate-y-0.5 hover:bg-brand-600"
+            className="ml-1.5 inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-brand-500 px-5 py-2.5 font-display text-[14.5px] font-semibold text-white shadow-lift transition-all hover:-translate-y-0.5 hover:bg-brand-600"
           >
             Plan Your Lunch
           </Link>
         </nav>
 
-        <button
-          type="button"
-          onClick={() => setOpen(!open)}
-          aria-expanded={open}
-          aria-label={open ? "Close menu" : "Open menu"}
-          className="rounded-xl p-2 text-ink-900 hover:bg-ink-900/5 lg:hidden"
-        >
-          <Icon name={open ? "close" : "menu"} className="h-6 w-6" />
-        </button>
+        {/* Tap-to-call is the highest-intent action for a local B2B service,
+            so it sits in the bar itself on mobile — not buried in the menu. */}
+        <div className="flex items-center gap-1 lg:hidden">
+          {SITE.phone && (
+            <a
+              href={telHref}
+              aria-label={`Call ${SITE.name} at ${SITE.phone}`}
+              className="rounded-xl p-2 text-brand-600 hover:bg-brand-50"
+            >
+              <Icon name="phone" className="h-6 w-6" />
+            </a>
+          )}
+          <button
+            type="button"
+            onClick={() => setOpen(!open)}
+            aria-expanded={open}
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="rounded-xl p-2 text-ink-900 hover:bg-ink-900/5"
+          >
+            <Icon name={open ? "close" : "menu"} className="h-6 w-6" />
+          </button>
+        </div>
       </div>
 
       {open && (
@@ -108,6 +133,17 @@ export function Navbar() {
                 Plan Your Lunch
               </Link>
             </li>
+            {SITE.phone && (
+              <li className="mt-2">
+                <a
+                  href={telHref}
+                  className="flex items-center justify-center gap-2 rounded-full border-2 border-ink-900/12 px-5 py-3.5 text-center font-display font-semibold text-ink-900"
+                >
+                  <Icon name="phone" className="h-4.5 w-4.5 text-brand-500" />
+                  {SITE.phone}
+                </a>
+              </li>
+            )}
           </ul>
         </nav>
       )}
