@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
@@ -23,6 +24,14 @@ export default function ServicesPage() {
             eyebrow="Business services"
             title="Whatever the occasion, lunch is covered"
             lead="From a Tuesday team lunch to a hundred-person training day, The Lunch Desk coordinates food for the moments that keep your business moving."
+          />
+          <Image
+            src="/img/team-lunch.jpg"
+            alt=""
+            width={1120}
+            height={625}
+            priority
+            className="mx-auto mt-12 w-full max-w-3xl rounded-[2rem] shadow-lift"
           />
         </div>
       </section>

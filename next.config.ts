@@ -9,6 +9,9 @@ const onGhPages = process.env.DEPLOY_TARGET === "gh-pages";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: "export",
+  // Static export has no server to run Next's image optimizer, so images are
+  // served as-authored. They're pre-sized by scripts/optimize-illustrations.ps1.
+  images: { unoptimized: true },
   trailingSlash: true,
   basePath: onGhPages ? "/the-lunch-desk" : "",
 };

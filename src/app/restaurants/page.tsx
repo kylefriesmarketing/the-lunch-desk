@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
@@ -22,6 +23,14 @@ export default function RestaurantsPage() {
             eyebrow="Lunch options"
             title="Local flavors, office-ready"
             lead="Our restaurant partner directory is just getting started — these slots show the kinds of local kitchens we're bringing on board. Filter by what your office needs, or just tell us and we'll do the matching."
+          />
+          <Image
+            src="/img/catering-options.jpg"
+            alt=""
+            width={1120}
+            height={625}
+            priority
+            className="mx-auto mt-12 w-full max-w-3xl rounded-[2rem] shadow-lift"
           />
         </div>
       </section>

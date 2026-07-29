@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
@@ -46,6 +47,14 @@ export default function HowItWorksPage() {
             No apps to learn, no accounts to set up, no group-order spreadsheets. You tell us what
             your office needs — we coordinate the rest.
           </p>
+          <Image
+            src="/img/desk-coordination.jpg"
+            alt=""
+            width={1120}
+            height={625}
+            priority
+            className="mx-auto mt-12 w-full max-w-3xl rounded-[2rem] shadow-lift"
+          />
         </div>
       </section>
 
