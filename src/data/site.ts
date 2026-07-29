@@ -25,13 +25,23 @@ export const SITE = {
   region: "SC",
 
   /**
-   * Where the two forms POST their JSON payloads (Formspree, a CRM webhook,
-   * a Zapier/Make hook that writes to Google Sheets + email, etc.).
-   * Set NEXT_PUBLIC_FORM_ENDPOINT in your deployment environment.
-   * While empty, forms run in a clearly-labeled preview mode and do not
-   * pretend the request was delivered.
+   * Where the two forms POST their JSON payloads.
+   *
+   * Defaults to FormSubmit's AJAX endpoint, which relays submissions straight
+   * to the business inbox above — a static site has no server of its own, so
+   * some relay is required to turn a form into an email.
+   *
+   * ⚠️ FormSubmit requires a ONE-TIME activation: the very first submission
+   * triggers a confirmation email to that inbox. Until the link in it is
+   * clicked, submissions are not forwarded. After that it works permanently.
+   *
+   * Override with NEXT_PUBLIC_FORM_ENDPOINT to point at Formspree, a CRM
+   * webhook, or an automation that writes to Google Sheets instead.
+   * Set it to "" to fall back to the prefilled-email flow.
    */
-  formEndpoint: process.env.NEXT_PUBLIC_FORM_ENDPOINT ?? "",
+  formEndpoint:
+    process.env.NEXT_PUBLIC_FORM_ENDPOINT ??
+    "https://formsubmit.co/ajax/LunchDeskLLC@gmail.com",
 } as const;
 
 export const NAV_LINKS = [

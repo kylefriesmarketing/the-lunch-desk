@@ -113,21 +113,47 @@ export function useLeadSubmit(kind: LeadKind) {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          kind,
-          ...data,
-          receivedAt: new Date().toISOString(),
-          source: SITE.url,
+          // Human-readable labels so the email body reads as a proper lead
+          // sheet rather than raw camelCase keys.
+          ...Object.fromEntries(
+            Object.entries(data)
+              .filter(([, v]) => v && String(v).trim())
+              .map(([k, v]) => [labelize(k), v]),
+          ),
+          Source: SITE.url,
+          // FormSubmit control fields (underscore-prefixed, not shown in the body)
+          _subject:
+            kind === "lunch-request"
+              ? `🥪 New lunch request — ${data.company || data.name || "website"}`
+              : `🍽️ Restaurant partner inquiry — ${data.restaurantName || "website"}`,
+          _template: "table",
+          _captcha: "false",
         }),
       });
       if (!res.ok) throw new Error(`Endpoint responded ${res.status}`);
+
+      // ⚠️ FormSubmit answers HTTP 200 even when it did NOT deliver — e.g. an
+      // un-activated form returns {"success":"false"}. Trusting the status code
+      // alone would show "Request received!" while the lead vanished, which is
+      // the one failure mode this form must never have. Check the body.
+      const text = await res.text();
+      if (text) {
+        try {
+          const json = JSON.parse(text) as { success?: string | boolean };
+          // `success` comes back as the STRING "false" from FormSubmit.
+          if (json.success !== undefined && String(json.success) !== "true") {
+            throw new Error("Endpoint reported failure");
+          }
+        } catch (e) {
+          // A non-JSON body is fine (other endpoints); only rethrow our own error.
+          if (e instanceof Error && e.message === "Endpoint reported failure") throw e;
+        }
+      }
       setState({ phase: "sent" });
     } catch {
-      setState({
-        phase: "error",
-        message:
-          "Something went wrong sending your request. Please try again" +
-          (SITE.email ? ` or email us directly at ${SITE.email}.` : "."),
-      });
+      // Network/endpoint failure must never lose a lead — hand the visitor the
+      // same prefilled email the no-endpoint path uses.
+      setState({ phase: "fallback", mailto: buildMailto(kind, data) });
     }
   }
 
