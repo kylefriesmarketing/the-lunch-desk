@@ -13,16 +13,22 @@ import {
 } from "@/components/forms/shared";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const NO_CUISINE_PREFERENCE = "No preference — surprise us";
 
 export function LunchRequestForm() {
   const { state, submit } = useLeadSubmit("lunch-request");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [restaurant, setRestaurant] = useState("");
+  const [cuisine, setCuisine] = useState(NO_CUISINE_PREFERENCE);
 
-  // Prefill "Preferred restaurant" from ?restaurant= (links on the Lunch Options page).
+  // Prefill from the Lunch Options page: ?cuisine= preselects the dropdown
+  // ("Request this style"); ?restaurant= still fills the free-text field.
   useEffect(() => {
-    const fromUrl = new URLSearchParams(window.location.search).get("restaurant");
-    if (fromUrl) setRestaurant(fromUrl);
+    const params = new URLSearchParams(window.location.search);
+    const r = params.get("restaurant");
+    if (r) setRestaurant(r);
+    const c = params.get("cuisine");
+    if (c && (CUISINES as readonly string[]).includes(c)) setCuisine(c);
   }, []);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -101,8 +107,9 @@ export function LunchRequestForm() {
         <Field label="Preferred cuisine">
           <Select
             name="cuisine"
-            options={["No preference — surprise us", ...CUISINES]}
-            defaultValue="No preference — surprise us"
+            options={[NO_CUISINE_PREFERENCE, ...CUISINES]}
+            value={cuisine}
+            onChange={(e) => setCuisine(e.target.value)}
           />
         </Field>
         <Field label="Preferred restaurant">

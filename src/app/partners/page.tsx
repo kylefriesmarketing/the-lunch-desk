@@ -49,8 +49,11 @@ export default function PartnersPage() {
             <Icon name="utensils" className="h-4 w-4" />
             For local restaurants
           </p>
-          <h1 className="mx-auto mt-6 max-w-3xl animate-fade-up font-display text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">
-            More business orders. <span className="text-brand-600">Less back-and-forth.</span>
+          <h1 className="mx-auto mt-6 max-w-3xl animate-fade-up font-display text-4xl font-bold tracking-tight text-balance text-ink-900 sm:text-5xl">
+            More business orders.{" "}
+            {/* nowrap stops the browser breaking the line mid-hyphenate
+                ("Less back-" / "and-forth.") */}
+            <span className="whitespace-nowrap text-brand-600">Less back-and-forth.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-ink-600">
             The Lunch Desk connects your kitchen with local offices that order food for teams,
@@ -60,13 +63,15 @@ export default function PartnersPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Flex + justify-center (not a grid) so the final row of 5 cards
+            centres instead of leaving an orphan gap on the right. */}
+        <div className="flex flex-wrap justify-center gap-6">
           {BENEFITS.map((b) => (
             <div
               key={b.title}
-              className="rounded-3xl border border-ink-900/8 bg-white p-7 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lift"
+              className="group w-full rounded-3xl border border-ink-900/8 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-fresh-500/40 hover:shadow-lift sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
             >
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-fresh-100 text-fresh-700">
+              <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-fresh-100 text-fresh-700 transition-colors duration-300 group-hover:bg-fresh-500 group-hover:text-white">
                 <Icon name={b.icon} className="h-6 w-6" />
               </span>
               <h2 className="mt-5 font-display text-lg font-bold text-ink-900">{b.title}</h2>

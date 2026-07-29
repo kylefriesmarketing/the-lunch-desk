@@ -15,14 +15,17 @@ export const metadata = pageMeta({
 const VALUES = [
   {
     title: "Local first",
+    icon: "pin" as const,
     body: "We exist to route office lunch budgets into local kitchens — the restaurants that make the Grand Strand worth eating in.",
   },
   {
     title: "Practical, not fancy",
+    icon: "phone" as const,
     body: "No apps to install, no platforms to learn. A conversation and a confirmed order — the way local business has always worked best.",
   },
   {
     title: "Honest coordination",
+    icon: "shield" as const,
     body: "We tell you what's available, what it costs, and when it'll be ready. No inflated promises, no fine print.",
   },
 ];
@@ -74,9 +77,12 @@ export default function AboutPage() {
         <SectionHeading eyebrow="How we work" title="Local, practical, trustworthy" />
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {VALUES.map((v) => (
-            <div key={v.title} className="rounded-3xl border border-ink-900/8 bg-white p-7 shadow-sm">
-              <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-100 text-brand-600">
-                <Icon name="check" className="h-5.5 w-5.5" />
+            <div
+              key={v.title}
+              className="group rounded-3xl border border-ink-900/8 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-lift"
+            >
+              <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-100 text-brand-600 transition-colors duration-300 group-hover:bg-brand-500 group-hover:text-white">
+                <Icon name={v.icon} className="h-[22px] w-[22px]" />
               </span>
               <h2 className="mt-4 font-display text-lg font-bold text-ink-900">{v.title}</h2>
               <p className="mt-2 text-[15px] leading-relaxed text-ink-600">{v.body}</p>
