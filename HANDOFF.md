@@ -283,6 +283,24 @@ navy (corporate trust) + fresh green accent, on warm cream.
 - **No emoji as UI iconography** — real monoline icons in `src/components/icons.tsx`.
   Repeated emoji read as unpolished to law/medical/finance buyers.
 
+**Deliberate decisions — don't "helpfully" revert these:**
+- Restaurant cards **lead with the cuisine**, not the slot name. The old title
+  repeated "Partner Slot —" on all six cards, duplicated the meta line directly
+  beneath it, and wrapped to two lines on half of them so every card's content
+  sat at a different height. Placeholder status lives in the badge instead.
+- Card footers use **`mt-auto`** so details and CTAs bottom-align across a grid
+  row even when descriptions differ in length (one card has an extra "Minimum"
+  row). Remove it and the grid goes ragged again.
+- Cards use **one glyph per cuisine**; repeating a single icon across a grid is
+  the thing that made these look unfinished.
+- "Request this style" links to **`?cuisine=`** and preselects the cuisine
+  dropdown. It used to pass `?restaurant=`, which dropped a placeholder slot
+  name into the "Preferred restaurant" field. `?restaurant=` still works.
+- Long hyphenated headlines ("Less back-and-forth.") need `whitespace-nowrap`
+  or browsers break them mid-hyphenate.
+- The partners benefits grid is **flex + justify-center**, not a 3-col grid,
+  so the 5-card set centres its last row instead of leaving an orphan gap.
+
 ---
 
 ## 10. What to do next (priority order)
