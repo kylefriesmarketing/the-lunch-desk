@@ -14,8 +14,7 @@ Google account.)
 - **Business type:** Service-area business (no storefront customers visit) —
   hide address, set service areas
 - **Service areas:** Myrtle Beach SC · Conway SC · Horry County SC
-- **Website:** https://kylefriesmarketing.github.io/the-lunch-desk/
-  (swap to the custom domain once one is registered)
+- **Website:** https://thelunchdesk.com
 - **Phone:** (252) 626-9250
 - **Email:** LunchDeskLLC@gmail.com
 

@@ -53,12 +53,12 @@ These are load-bearing. Violating them creates legal/credibility risk:
 
 | Thing | Status |
 |---|---|
-| Website | ✅ **LIVE** — https://kylefriesmarketing.github.io/the-lunch-desk/ |
+| Website | ✅ **LIVE** — https://thelunchdesk.com (custom domain, registrar Porkbun) |
 | Source repo | ✅ https://github.com/kylefriesmarketing/the-lunch-desk |
 | Google Business Profile | ⚠️ **Built, NOT publicly visible** — awaiting video verification |
 | Google Search Console | ✅ Verified, sitemap submitted |
 | Form lead delivery | ⚠️ Email-fallback only — needs a Formspree endpoint |
-| Custom domain | ❌ Not purchased |
+| Custom domain | ✅ thelunchdesk.com — registrar **Porkbun**, DNS points at GitHub Pages |
 | Logo | ✅ Generated (`brand/logo-1024.png`), not yet uploaded to Google |
 | Bing Webmaster Tools | ❌ Not done |
 
