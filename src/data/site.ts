@@ -9,11 +9,11 @@ export const SITE = {
   tagline: "Your Office Lunch Concierge",
 
   /**
-   * Canonical production URL. Currently the GitHub Pages deploy; swap to the
-   * custom domain (e.g. https://thelunchdesk.com) when it exists, then
-   * re-deploy — sitemap.ts, robots.ts and all metadata read from this value.
+   * Canonical production URL. Sitemap, robots, canonicals, Open Graph and the
+   * structured data all derive from this — change it here and nowhere else.
+   * No trailing slash: routes are appended as `${url}/path/`.
    */
-  url: "https://kylefriesmarketing.github.io/the-lunch-desk",
+  url: "https://thelunchdesk.com",
 
   /** Official business phone. Empty = hidden everywhere. */
   phone: "(252) 626-9250" as string,

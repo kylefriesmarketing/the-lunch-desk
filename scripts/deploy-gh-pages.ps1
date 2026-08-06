@@ -20,9 +20,9 @@ if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
   else { throw "Node.js not found on PATH and no portable Node at $portableNode" }
 }
 
-# basePath is only applied for the GitHub Pages deploy (see next.config.ts).
-$env:DEPLOY_TARGET = 'gh-pages'
-
+# The site is served from the apex custom domain thelunchdesk.com, so there is
+# no basePath any more. public/CNAME is what tells GitHub Pages the domain, and
+# it is copied into out/ by the build.
 Write-Host "Building static export..." -ForegroundColor Cyan
 npm run build
 if ($LASTEXITCODE -ne 0) { throw "Build failed - deploy aborted." }
@@ -47,5 +47,5 @@ finally {
   Remove-Item (Join-Path $root 'out\.git') -Recurse -Force -ErrorAction SilentlyContinue
 }
 
-Write-Host "Deployed. Live in ~1 min at https://kylefriesmarketing.github.io/the-lunch-desk/" -ForegroundColor Green
+Write-Host "Deployed. Live in ~1 min at https://thelunchdesk.com/" -ForegroundColor Green
 Write-Host "(GitHub's CDN may serve cached assets for a few extra minutes.)" -ForegroundColor DarkGray
