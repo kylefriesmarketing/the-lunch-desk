@@ -232,6 +232,33 @@ Payload shape:
 
 ## 8. Traps learned the hard way
 
+**Custom domain / SSL (thelunchdesk.com)**
+- Registrar is **Porkbun**. DNS: the root `ALIAS` points at
+  `kylefriesmarketing.github.io` (Porkbun flattens it to GitHub's four A
+  records), and a `www` CNAME points at the same. The `MX` + `v=spf1` TXT
+  records run email forwarding and the `_acme-challenge` TXT records handle
+  SSL — **never delete those**.
+- `public/CNAME` is what tells GitHub Pages the domain. It must stay in the
+  build output; deleting it un-sets the custom domain on the next deploy.
+- ⚠️ **If HTTPS is stuck with no certificate**, GitHub's provisioning has
+  failed to start (API shows `https_certificate.state` empty). The fix is to
+  **remove and re-add the custom domain**, which forces a fresh DNS check and
+  cert request:
+  ```
+  gh api -X PUT repos/OWNER/REPO/pages -f cname=""
+  gh api -X PUT repos/OWNER/REPO/pages -f cname="thelunchdesk.com"
+  ```
+  State went from empty to `approved` immediately. Then
+  `gh api -X PUT ... -F https_enforced=true`.
+- ⚠️ A `status: errored` reading right after that swap is transient — check
+  `pages/builds/latest`, which stayed `built` throughout.
+- Diagnose "why is HTTPS failing" by inspecting the cert actually served, not
+  by guessing: `openssl s_client -servername DOMAIN -connect DOMAIN:443 | openssl x509 -noout -subject`.
+  A `CN=*.github.io` subject means the new cert hasn't reached the edge yet.
+- ⚠️ The Porkbun DNS panel could not be driven by the browser tools — clicks
+  froze the renderer repeatedly. Hand DNS edits to a human rather than
+  blind-clicking near the MX records.
+
 **Deployment / tooling**
 - GitHub's CDN caches for ~10 min. After deploying, verify against the
   `gh-pages` branch raw file, not the served URL, or you'll misread a stale
