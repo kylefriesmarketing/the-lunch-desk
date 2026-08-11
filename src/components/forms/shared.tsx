@@ -208,7 +208,7 @@ export function SubmitFeedback({ state, sentMessage }: { state: SubmitState; sen
             <span className="text-sm">
               or call{" "}
               <a
-                href={`tel:${SITE.phone.replace(/[^+\d]/g, "")}`}
+                href={`tel:${SITE.phoneTel}`}
                 className="font-semibold underline underline-offset-4"
               >
                 {SITE.phone}

@@ -116,9 +116,9 @@ $g.DrawString('Pricing depends on the order. No app, no account, no contract to 
 # ---- contact block ----
 $g.FillPath((Brush $navy), (New-RoundRect 96 1240 1083 250 30))
 $g.DrawString('Plan your next office lunch', (Font 30 $B), (Brush $cream), 140, 1278)
-$g.DrawString('(252) 626-9250', (Font 42 $B), (Brush $brand2), 140, 1336)
+$g.DrawString('(252) 626-1950', (Font 42 $B), (Brush $brand2), 140, 1336)
 $g.DrawString('LunchDeskLLC@gmail.com', (Font 21 $R), (Brush $cream), 140, 1410)
-$g.DrawString('kylefriesmarketing.github.io/the-lunch-desk', (Font 17 $R),
+$g.DrawString('thelunchdesk.com', (Font 19 $R),
   (Brush ([System.Drawing.Color]::FromArgb(198, 208, 222))), 140, 1444)
 $g.DrawString('Mon-Fri', (Font 15 $B), (Brush $ink400), 980, 1410)
 $g.DrawString('8am - 5pm', (Font 15 $B), (Brush $ink400), 980, 1436)

@@ -45,7 +45,8 @@ export function JsonLd() {
         areaServed: SITE.serviceAreas.map((name) => `${name}, ${SITE.region}`),
       },
     })),
-    ...(SITE.phone ? { telephone: SITE.phone } : {}),
+    // schema.org wants E.164 so search engines can dial it unambiguously.
+    ...(SITE.phoneTel ? { telephone: SITE.phoneTel } : {}),
     ...(SITE.email ? { email: SITE.email } : {}),
   };
 

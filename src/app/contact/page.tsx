@@ -53,7 +53,7 @@ export default function ContactPage() {
                 {SITE.phone ? (
                   <li className="flex items-center gap-2.5">
                     <Icon name="phone" className="h-5 w-5 text-brand-500" />
-                    <a href={`tel:${SITE.phone.replace(/[^+\d]/g, "")}`} className="font-semibold text-ink-900 hover:text-brand-600">
+                    <a href={`tel:${SITE.phoneTel}`} className="font-semibold text-ink-900 hover:text-brand-600">
                       {SITE.phone}
                     </a>
                   </li>

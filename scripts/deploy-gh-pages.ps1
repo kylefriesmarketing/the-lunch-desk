@@ -1,5 +1,5 @@
 # Builds the static site and publishes it to the `gh-pages` branch,
-# which is what https://kylefriesmarketing.github.io/the-lunch-desk/ serves.
+# which is what https://thelunchdesk.com/ serves.
 #
 # Usage (from the project root):
 #   powershell -ExecutionPolicy Bypass -File scripts\deploy-gh-pages.ps1

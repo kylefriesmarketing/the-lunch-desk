@@ -214,7 +214,7 @@ foreach ($a in $areas) {
     (New-Object System.Drawing.SolidBrush($ink600)), 254, ($y + 100))
   $y += 208
 }
-$g.DrawString('(252) 626-9250', (New-Object System.Drawing.Font('Segoe UI', 30, [System.Drawing.FontStyle]::Bold)),
+$g.DrawString('(252) 626-1950', (New-Object System.Drawing.Font('Segoe UI', 30, [System.Drawing.FontStyle]::Bold)),
   (New-Object System.Drawing.SolidBrush($brand)), 88, 1074)
 Save-Canvas $bmp $g 'graphic-areas.png'
 

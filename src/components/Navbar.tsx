@@ -24,7 +24,7 @@ function Wordmark() {
 }
 
 /** tel: links must be digits only — strip formatting from the display number. */
-const telHref = `tel:${SITE.phone.replace(/[^+\d]/g, "")}`;
+const telHref = `tel:${SITE.phoneTel}`;
 
 export function Navbar() {
   const pathname = usePathname();

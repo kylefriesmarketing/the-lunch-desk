@@ -43,7 +43,7 @@ export function Footer() {
           <ul className="mt-4 space-y-2.5 text-sm">
             {SITE.phone && (
               <li>
-                <a href={`tel:${SITE.phone.replace(/[^+\d]/g, "")}`} className="hover:text-brand-300">
+                <a href={`tel:${SITE.phoneTel}`} className="hover:text-brand-300">
                   {SITE.phone}
                 </a>
               </li>

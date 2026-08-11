@@ -63,7 +63,7 @@ These are load-bearing. Violating them creates legal/credibility risk:
 | Bing Webmaster Tools | ❌ Not done |
 
 **Contact details now live on the site:**
-Phone `(252) 626-9250` · Email `LunchDeskLLC@gmail.com`
+Phone `(252) 626-1950` · Email `LunchDeskLLC@gmail.com`
 
 **Owning Google account:** `LunchDeskLLC@gmail.com` — this account permanently
 owns the Business Profile. Never create business assets under a personal account.

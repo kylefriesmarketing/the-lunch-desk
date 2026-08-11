@@ -88,7 +88,7 @@ trying you costs them nothing.
 >
 > Kyle
 > The Lunch Desk LLC
-> (252) 626-9250 · kylefriesmarketing.github.io/the-lunch-desk
+> (252) 626-1950 · thelunchdesk.com
 
 ---
 
@@ -110,7 +110,7 @@ trying you costs them nothing.
 >
 > Kyle
 > The Lunch Desk LLC
-> (252) 626-9250
+> (252) 626-1950
 
 ---
 

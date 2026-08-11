@@ -15,8 +15,15 @@ export const SITE = {
    */
   url: "https://thelunchdesk.com",
 
-  /** Official business phone. Empty = hidden everywhere. */
-  phone: "(252) 626-9250" as string,
+  /** Official business phone, formatted for display. Empty = hidden everywhere. */
+  phone: "(252) 626-1950" as string,
+
+  /**
+   * Same number in E.164. Used for `tel:` links and schema.org `telephone`,
+   * both of which want the country code. Kept separate so the displayed
+   * format stays clean and US-local.
+   */
+  phoneTel: "+12526261950" as string,
 
   /** Official business inbox. Empty = hidden everywhere. */
   email: "LunchDeskLLC@gmail.com" as string,
