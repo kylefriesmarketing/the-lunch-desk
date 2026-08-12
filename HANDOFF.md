@@ -57,7 +57,7 @@ These are load-bearing. Violating them creates legal/credibility risk:
 | Source repo | ✅ https://github.com/kylefriesmarketing/the-lunch-desk |
 | Google Business Profile | ⚠️ **Built, NOT publicly visible** — awaiting video verification |
 | Google Search Console | ✅ Verified, sitemap submitted |
-| Form lead delivery | ⚠️ Email-fallback only — needs a Formspree endpoint |
+| Form lead delivery | ✅ **Working** — FormSubmit → LunchDeskLLC@gmail.com (verified end to end) |
 | Custom domain | ✅ thelunchdesk.com — registrar **Porkbun**, DNS points at GitHub Pages |
 | Logo | ✅ Generated (`brand/logo-1024.png`), not yet uploaded to Google |
 | Bing Webmaster Tools | ❌ Not done |
@@ -231,6 +231,29 @@ Payload shape:
 ---
 
 ## 8. Traps learned the hard way
+
+**Form delivery (FormSubmit)**
+- Forms POST to `https://formsubmit.co/LunchDeskLLC@gmail.com` — the **standard**
+  endpoint. Verified end to end: a real submission arrives in the inbox.
+- ⚠️ **Do NOT switch to `/ajax/`.** FormSubmit activates the standard and
+  `/ajax/` endpoints **separately**. Clicking the activation link enabled the
+  standard endpoint while `/ajax/` kept replying
+  `{"success":"false","message":"needs Activation"}` no matter how many times
+  it was activated. This cost several rounds of the user re-clicking links that
+  were never going to help. Diagnose by testing BOTH endpoints, not by assuming
+  the user mis-clicked.
+- Because the standard endpoint answers with HTML + a redirect (not JSON), a
+  cross-origin `fetch` cannot read the result — so there is no honest way to
+  detect success that way. The forms therefore build a real `<form>` and submit
+  natively; FormSubmit returns the visitor via `_next` to `?sent=1`, and **that
+  return is the only thing that shows "Request received!"**. Success is never
+  claimed unless delivery actually happened.
+- ⚠️ Earlier bug worth remembering: FormSubmit answers **HTTP 200 even when it
+  did not deliver**. Any future JSON-based integration must parse the body —
+  and note `success` comes back as the STRING `"false"`, so a boolean check
+  silently passes.
+- Any failure path still falls back to a prefilled `mailto:` so a lead is never
+  dropped.
 
 **Custom domain / SSL (thelunchdesk.com)**
 - Registrar is **Porkbun**. DNS: the root `ALIAS` points at
