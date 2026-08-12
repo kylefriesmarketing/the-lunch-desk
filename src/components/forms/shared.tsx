@@ -94,67 +94,76 @@ function buildMailto(kind: LeadKind, data: Record<string, string>) {
 type LeadKind = "lunch-request" | "restaurant-partner";
 
 /**
+ * Posts the lead by building a real <form> and submitting it natively.
+ *
+ * Why not fetch(): FormSubmit's standard endpoint answers with HTML and a
+ * redirect, and a cross-origin fetch cannot read that response — so there'd be
+ * no honest way to tell success from failure. A native POST lets FormSubmit
+ * handle the request and bounce the visitor back to `_next`, and we only claim
+ * success once we're actually back on our own page with ?sent=1.
+ */
+function submitLeadNatively(kind: LeadKind, data: Record<string, string>) {
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = SITE.formEndpoint;
+  form.style.display = "none";
+
+  const add = (name: string, value: string) => {
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+    form.appendChild(input);
+  };
+
+  // Human-readable keys so the email reads as a lead sheet, not camelCase.
+  Object.entries(data)
+    .filter(([, v]) => v && String(v).trim())
+    .forEach(([k, v]) => add(labelize(k), v));
+
+  add("Source", SITE.url);
+  add(
+    "_subject",
+    kind === "lunch-request"
+      ? `New lunch request — ${data.company || data.name || "website"}`
+      : `Restaurant partner inquiry — ${data.restaurantName || "website"}`,
+  );
+  add("_template", "table");
+  add("_captcha", "false");
+  // FormSubmit returns the visitor here after it has accepted the submission.
+  add("_next", `${SITE.url}/${kind === "lunch-request" ? "contact" : "partners"}/?sent=1`);
+
+  document.body.appendChild(form);
+  form.submit();
+}
+
+/**
  * Sends the lead to the configured endpoint (Formspree / CRM webhook /
  * automation). With no endpoint configured, reports honest preview mode.
  */
 export function useLeadSubmit(kind: LeadKind) {
   const [state, setState] = useState<SubmitState>({ phase: "idle" });
 
-  async function submit(data: Record<string, string>) {
+  // FormSubmit bounces the visitor back to ?sent=1 once it has accepted the
+  // submission, so this is the ONLY place success is claimed — we're back on
+  // our own page, which means the relay really did take it.
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("sent") === "1") {
+      setState({ phase: "sent" });
+      // Drop the param so a refresh doesn't re-show the confirmation.
+      window.history.replaceState({}, "", window.location.pathname);
+    }
+  }, []);
+
+  function submit(data: Record<string, string>) {
     if (!SITE.formEndpoint) {
-      // No endpoint wired yet — hand the visitor a prefilled email instead of
+      // No endpoint wired — hand the visitor a prefilled email rather than
       // dropping the lead on the floor.
       setState({ phase: "fallback", mailto: buildMailto(kind, data) });
       return;
     }
     setState({ phase: "sending" });
-    try {
-      const res = await fetch(SITE.formEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          // Human-readable labels so the email body reads as a proper lead
-          // sheet rather than raw camelCase keys.
-          ...Object.fromEntries(
-            Object.entries(data)
-              .filter(([, v]) => v && String(v).trim())
-              .map(([k, v]) => [labelize(k), v]),
-          ),
-          Source: SITE.url,
-          // FormSubmit control fields (underscore-prefixed, not shown in the body)
-          _subject:
-            kind === "lunch-request"
-              ? `🥪 New lunch request — ${data.company || data.name || "website"}`
-              : `🍽️ Restaurant partner inquiry — ${data.restaurantName || "website"}`,
-          _template: "table",
-          _captcha: "false",
-        }),
-      });
-      if (!res.ok) throw new Error(`Endpoint responded ${res.status}`);
-
-      // ⚠️ FormSubmit answers HTTP 200 even when it did NOT deliver — e.g. an
-      // un-activated form returns {"success":"false"}. Trusting the status code
-      // alone would show "Request received!" while the lead vanished, which is
-      // the one failure mode this form must never have. Check the body.
-      const text = await res.text();
-      if (text) {
-        try {
-          const json = JSON.parse(text) as { success?: string | boolean };
-          // `success` comes back as the STRING "false" from FormSubmit.
-          if (json.success !== undefined && String(json.success) !== "true") {
-            throw new Error("Endpoint reported failure");
-          }
-        } catch (e) {
-          // A non-JSON body is fine (other endpoints); only rethrow our own error.
-          if (e instanceof Error && e.message === "Endpoint reported failure") throw e;
-        }
-      }
-      setState({ phase: "sent" });
-    } catch {
-      // Network/endpoint failure must never lose a lead — hand the visitor the
-      // same prefilled email the no-endpoint path uses.
-      setState({ phase: "fallback", mailto: buildMailto(kind, data) });
-    }
+    submitLeadNatively(kind, data);
   }
 
   return { state, submit };

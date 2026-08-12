@@ -34,13 +34,16 @@ export const SITE = {
   /**
    * Where the two forms POST their JSON payloads.
    *
-   * Defaults to FormSubmit's AJAX endpoint, which relays submissions straight
-   * to the business inbox above — a static site has no server of its own, so
-   * some relay is required to turn a form into an email.
+   * Defaults to FormSubmit's STANDARD endpoint, which relays submissions
+   * straight to the business inbox above — a static site has no server of its
+   * own, so some relay is required to turn a form into an email.
    *
-   * ⚠️ FormSubmit requires a ONE-TIME activation: the very first submission
-   * triggers a confirmation email to that inbox. Until the link in it is
-   * clicked, submissions are not forwarded. After that it works permanently.
+   * ⚠️ Use the standard endpoint, NOT `/ajax/`. FormSubmit activates the two
+   * SEPARATELY: clicking the activation link enabled the standard endpoint
+   * while `/ajax/` kept returning {"success":"false","message":"needs
+   * Activation"} forever. Because the standard endpoint replies with HTML and
+   * a redirect (not JSON), the forms submit natively and FormSubmit returns
+   * the visitor to `?sent=1` via its `_next` field — see submitLead().
    *
    * Override with NEXT_PUBLIC_FORM_ENDPOINT to point at Formspree, a CRM
    * webhook, or an automation that writes to Google Sheets instead.
@@ -48,7 +51,7 @@ export const SITE = {
    */
   formEndpoint:
     process.env.NEXT_PUBLIC_FORM_ENDPOINT ??
-    "https://formsubmit.co/ajax/LunchDeskLLC@gmail.com",
+    "https://formsubmit.co/LunchDeskLLC@gmail.com",
 } as const;
 
 export const NAV_LINKS = [
